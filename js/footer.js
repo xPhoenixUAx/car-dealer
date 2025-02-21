@@ -5,11 +5,14 @@ export function smoothScrollFooterLinks() {
   );
   footerLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute("href").substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      const href = link.getAttribute("href");
+      if (href.startsWith("#")) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
     });
   });
@@ -17,11 +20,13 @@ export function smoothScrollFooterLinks() {
 
 // Функція для паралакс ефекту на футері
 export function parallaxFooterWave() {
-  window.addEventListener("scroll", () => {
-    const scrollPosition = window.pageYOffset;
-    const footerWave = document.querySelector(".footer-wave");
-    if (footerWave) {
-      footerWave.style.transform = `translateY(${scrollPosition * 0.1}px)`;
-    }
+  window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("scroll", () => {
+      const scrollPosition = window.pageYOffset;
+      const footerWave = document.querySelector(".footer-wave");
+      if (footerWave) {
+        footerWave.style.transform = `translateY(${scrollPosition * 0.1}px)`;
+      }
+    });
   });
 }
